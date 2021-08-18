@@ -1,105 +1,58 @@
-import pyautogui  # pip install pyautogui
-from PIL import Image, ImageGrab  # pip install pillow
-# from numpy import asarray
 import time
+import pyautogui 
+from PIL import ImageGrab 
 
 
-def hit(key):
+def presskey(key):
     pyautogui.keyDown(key)
     return
 
-
-def isCollide(data):
-    # Draw the rectangle for birds
-    # for i in range(300, 415):
-    #     for j in range(410, 563):
-    #         if data[i, j] < 100:
-    #             return
-    #             # hit("down")
+''' Here 0 means Black color and 255 means white color '''
+def game(data):
+    # First Part for White Background
     for i in range(300, 302):
         for j in range(900, 902):
             if data[i, j] < 100:
-                for i in range(220, 660):
-                    for j in range(563, 650):
-                        if data[i, j] > 100:
-                            hit("up")
+            # above two line we r taking very tiny range because we just want to chk background color so no need to go for wide number range
+                # Above Three line is checking that background is white or black
+                for i in range(300, 645):
+                    for j in range(564, 670):
+                        if data[i, j] > 150:
+                            # print("white")
+                            presskey("up")
                             return
-            else:
-                break
 
+    # Second Part for Black Background
     for i in range(300, 302):
         for j in range(900, 902):
             if data[i, j] > 100:
-                for i in range(220, 660):
-                    for j in range(563, 650):
-                        if data[i, j] < 100:
-                            print("ok")
-                            hit("up")
+                for i in range(300, 645):
+                    for j in range(564, 650):
+                        if data[i, j] < 150:
+                            # print("black")
+                            presskey("up")
                             return
-            else:
-                break
-    # for i in range(300, 302):
-    #     for j in range(900, 902):
-    #         if 0 < data[i,j] < 255:
-    #             for i in range(200, 600):
-    #                 for j in range(563, 650):
-    #                     if 0 < data[i,j] < 255:
-    #                         hit("up")
-    #                         print("oh")
-    #                         break
-    #                     break
-    #                 break
-    #             break
-    #         break
-    #     break
-
+    
     return
 
 
 if __name__ == "__main__":
-    print("Hey.. Dino game about to start in 3 seconds")
-    time.sleep(2)
-    # hit('up')
+    print("Game will start in 3 seconds")
+    time.sleep(3)
 
     while True:
         image = ImageGrab.grab().convert('L')
+         #convert("L") will conver img to black and white
+        ''' Here 0 means Black color and 255 means white color '''
         data = image.load()
-        isCollide(data)
+        game(data)
 
-        # print(asarray(image))
-        '''
-        # Draw the rectangle for cactus
-        for i in range(275, 325):
-            for j in range(563, 650):
-                data[i, j] = 0
-
-        # Draw the rectangle for birds
-        for i in range(250, 300):
-            for j in range(410, 563):
-                data[i, j] = 171
-
-'''
         # for i in range(300, 302):
         #     for j in range(900, 902):
-        #         data[i, j] = 0
-        # for i in range(270, 650):
-        #     for j in range(563, 650):
-        #         data[i, j] = 100
-        # for i in range(300, 600):
-        #     for j in range(563, 650):
-        #         data[i, j] = 0
-        # for i in range(300, 302):
-        #     for j in range(900, 902):
-        #         data[i, j] = 175
+                # data[i, j] = 150  #this line shows that show img of 150 number ractangle... between 0(black) and 255(white)
+
+        # for i in range(300, 645):
+        #     for j in range(564, 650):
+        #         data[i, j] = 50
         # image.show()
         # break
-
-        #         # hit("down")
-        #         # return
-        # for i in range(300, 415):
-        #     for j in range(563, 650):
-        #         data[i, j] = 200
-        # # for i in range(375, 480):
-        # #     for j in range(550, 675):
-        # #         data[i, j] = 175
-        # # #             # hit("up")
